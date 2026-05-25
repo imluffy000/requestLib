@@ -1,6 +1,16 @@
 # GitHub Profile Analyzer
 
-A Python application to fetch and analyze GitHub user profiles and repositories with both CLI and Streamlit frontend options.
+A Python application to fetch and analyze GitHub user profiles and repositories using the GitHub API. This project demonstrates how to securely handle API credentials and interact with external APIs in Python.
+
+## Project Overview
+
+This project was created to learn and practice:
+- Making API requests using the `requests` library
+- Handling authentication with API tokens
+- Data visualization with `matplotlib`
+- Environment variable management with `python-dotenv`
+- Error handling and exception management
+- Working with JSON data structures
 
 ## Setup
 
@@ -22,38 +32,32 @@ GITHUB_TOKEN=your_github_token_here
 
 ## Usage
 
-### Option 1: CLI (Command Line Interface)
-
-Run the original CLI version:
+Run the CLI script:
 
 ```bash
 python github.py
 ```
 
-Then enter a GitHub username when prompted.
+Enter a GitHub username when prompted to fetch and display:
+- User profile information (name, bio, followers, following, etc.)
+- Public repository count and account creation date
+- Repository statistics and language analysis
 
-### Option 2: Streamlit Frontend (Recommended)
+## Features
 
-Run the interactive web interface:
-
-```bash
-streamlit run app.py
-```
-
-This will open a browser window with an interactive dashboard where you can:
-- Enter a GitHub username in the sidebar
-- View profile statistics (followers, following, repos)
-- See language distribution charts
-- View top repositories by stars
-- Browse recent repositories in a table
+- **Profile Fetching** - Retrieves user profile data from GitHub API
+- **Repository Analysis** - Gathers information about all public repositories
+- **Language Statistics** - Counts programming languages used across repositories
+- **Error Handling** - Gracefully handles API errors, timeouts, and invalid users
+- **Secure Credentials** - Token stored safely in `.env` file, not in source code
 
 ## Files
 
-- `github.py` - Original CLI script
-- `app.py` - Streamlit web interface
-- `.env` - Environment variables (secrets stored here)
-- `.gitignore` - Prevents `.env` from being committed
-- `requirements.txt` - Python dependencies
+- `github.py` - Main CLI script that fetches and displays GitHub profile data
+- `.env` - Environment variables file containing GitHub API token (not tracked by git)
+- `.gitignore` - Specifies files to exclude from version control (includes `.env`)
+- `requirements.txt` - Python package dependencies
+- `README.md` - This file
 
 ## Security
 
@@ -63,7 +67,42 @@ Your GitHub token is stored in `.env` which is:
 3. **NOT** committed to version control
 4. Safely accessed via `os.getenv("GITHUB_TOKEN")`
 
-## Notes
+## API Documentation
 
-- The GitHub API has rate limits (60 requests/hour for unauthenticated, 5000/hour for authenticated requests)
-- Using a personal access token increases your rate limit significantly
+This project uses the GitHub REST API v3:
+- User endpoint: `GET /users/{username}`
+- Repositories endpoint: `GET /users/{username}/repos`
+- Authentication: Bearer token in Authorization header
+
+## Learning Outcomes
+
+Through this project, you'll understand:
+- RESTful API concepts and HTTP requests
+- API authentication and token management
+- JSON parsing and data manipulation
+- Exception handling in Python
+- Environment variables and configuration management
+- Data visualization with matplotlib
+
+## Prerequisites
+
+- Python 3.7 or higher
+- GitHub account with a personal access token
+- Internet connection for API requests
+
+## Troubleshooting
+
+**Issue:** "User not found" error
+- Solution: Check that the username is spelled correctly
+
+**Issue:** Rate limit exceeded
+- Solution: Add your GitHub token to `.env` for higher rate limits (5000/hour instead of 60/hour)
+
+**Issue:** Connection timeout
+- Solution: Check your internet connection and try again
+
+## Rate Limits
+
+- **Unauthenticated requests:** 60 requests/hour
+- **Authenticated requests:** 5000 requests/hour
+- Using a personal access token is strongly recommended for better rate limits
